@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8">
+    <title>dfjblog-backend</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.min.js"></script>
+    <script>
+    	document.write('<script type="text/javascript" src="/dist/webpack.assets.js?v='+Math.random()+'"><\/script>')
+    </script>
+    <script>
+      document.write('<script type="text/javascript" src="' + window.WEBPACK_ASSETS['vendor'].js +'"><\/script>')
+    </script>
+    <script>
+      document.write('<script type="text/javascript" src="' + window.WEBPACK_ASSETS['common'].js +'"><\/script>')
+    </script>
+    <script>
+    	document.write('<script type="text/javascript" src="' + window.WEBPACK_ASSETS['backend'].js +'"><\/script>')
+    </script>
+  </body>
+</html>
