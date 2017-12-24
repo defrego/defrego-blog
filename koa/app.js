@@ -90,7 +90,7 @@ function saveFiles (req) {
   for (let key in req) {
     let file = req[key]
     let filename = (new Date()).getTime() + file.name.slice(file.name.lastIndexOf('.'))
-    let destPath = path.join(__dirname, '..', 'static/dfjblog/image', filename)
+    let destPath = path.join(__dirname, '..', 'static/image', filename)
     const reader = fs.createReadStream(file.path)
     const writer = fs.createWriteStream(destPath)
     reader.pipe(writer)
