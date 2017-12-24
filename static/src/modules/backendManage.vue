@@ -1,7 +1,10 @@
 <template>
   <div class="backendManage">
-    <button @click="logout" style="float: right">logout</button>
     <br/>
+    <button @click="logout" style="float: right">退出</button>
+    <button @click="bModifyAdmin = !bModifyAdmin" style="float: right; margin-right: 5px;">修改用户名密码</button>
+    <br/>
+    <modify-admin v-show="bModifyAdmin" @modify="modifyAuth"></modify-admin>
     <item-list ref="itemList"
                v-show="!editMode"
                :itemList="itemList"
@@ -26,11 +29,13 @@ import each from 'lodash/each'
 import merge from 'lodash/merge'
 import editForm from '../components/edit-form'
 import itemList from '../components/item-list'
+import modifyAdmin from '../components/modify-admin'
 
 export default {
   name: 'backendManage',
   data() {
     return {
+      bModifyAdmin: false,
       tips: '',
       tipColor: '',
       interval: null,
@@ -58,6 +63,19 @@ export default {
     }
   },
   methods: {
+    modifyAuth(req) {
+      this._modifyAuth({
+        oldName: req.username,
+        oldPass: req.password,
+        newName: req.newName,
+        newPass: req.newPass
+      }).then(() => {
+        alert('修改成功！')
+        this.bModifyAdmin = false
+      }).catch(() => {
+        alert('修改失败！')
+      })
+    },
     refresh() {
       this._search().then(() => {
         this.tips = '刷新成功'
@@ -127,6 +145,9 @@ export default {
     _delete(title) {
       return this.$http.post('/data/delOne', {'title': title})
     },
+    _modifyAuth(req) {
+      return this.$http.post('/data/modifyAdmins', req)
+    },
     logout() {
       let d = new Date()
       d.setTime((new Date()).getTime() + (-1 * 24 * 60 * 60 * 1000))
@@ -135,7 +156,7 @@ export default {
       this.$router.push('/backendLogin')
     }
   },
-  components: {editForm, itemList},
+  components: {editForm, itemList, modifyAdmin},
   created() {
     this._search()
     this.interval = setInterval(() => {

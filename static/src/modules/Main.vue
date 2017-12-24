@@ -5,12 +5,12 @@
     <transition name="fade">
       <div class="scroll-to-top" v-show="showArrow" @mouseover="showFoot = true" @mouseout="showFoot = false" @click="scrollToTop"></div>
     </transition>
-    <transition name="appear">
-      <div class="foot" v-show="showFoot">
-        <span>defrego's blog © {{new Date().getFullYear()}}  Designed by Defrego 浙ICP备17055010号</span><br/>
+    <!-- <transition name="appear"> -->
+      <div class="foot" v-show="showArrow">
+        <span><label @click="toBack" class="extLinks">defrego's blog</label> © {{new Date().getFullYear()}}  Designed by Defrego[<label @click="toGithub" class="extLinks">github</label>] 浙ICP备17055010号</span><br/>
         <span></span>
       </div>
-    </transition>
+    <!-- </transition> -->
     
   </div>
 </template>
@@ -39,6 +39,12 @@ export default {
     },
     changeMinimal(val) {
       this.showArrow = val
+    },
+    toBack() {
+      window.open('/backend.html', '_blank')
+    },
+    toGithub() {
+      window.open('https://github.com/defrego/defrego-blog', '_blank')
     }
   },
   components: { banner },
@@ -98,10 +104,17 @@ h1, h2, h3, h4, h5 {
   position: fixed;
   width: 100%;
   height: 25px;
-  bottom: 0;
+  bottom: -1px;
   text-align: center;
   color: #484848;
   background-color: #d4d4d4;
+  .extLinks {
+    font-style: italic;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.8;
+    }
+  }
 }
 .appear-enter-active, .appear-leave-active {
   opacity: 0.8;

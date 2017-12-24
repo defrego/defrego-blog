@@ -9,8 +9,6 @@ const _ = require('lodash')
 mongoose.Promise = global.Promise
 const app = new Koa()
 
-let UserName = 'admin'
-let PassWord = 'abc12345'
 let SessionId = ''
 let Tik = null
 
@@ -28,8 +26,14 @@ let articleSchema = new mongoose.Schema({
   dislikes: Number,
   comments: [{content: String, date: Date}]
 })
+let adminSchema = new mongoose.Schema({
+  username: String,
+  password: String,
+  level: String
+})
 
 let articleModel = db.model('articles', articleSchema)
+let adminModel = db.model('admins', adminSchema)
 
 function getContent (title) {
   return articleModel.findOne({
@@ -95,7 +99,36 @@ function saveFiles (req) {
   return res
 }
 function validate (user, pass) {
-  return user === UserName && pass === PassWord
+  let user_Base64 = new Buffer(user).toString('base64')
+  let pass_Base64 = new Buffer(pass).toString('base64')
+  return adminModel.find({username: user_Base64}).then(res => {
+    if (res.length <= 0) {
+      return false
+    }
+    return res[0].password === pass_Base64
+  }).catch(err => {
+    return false
+  })
+}
+function modifyAdmins (req) {
+  if (req['oldName'] === undefined || req['oldPass'] === undefined || req['newName'] === undefined || req['newPass'] === undefined) {
+    return null
+  }
+  return validate(req.oldName, req.oldPass).then(res => {
+    if (res) {
+      return adminModel.update({
+        'username': new Buffer(req.oldName).toString('base64'),
+        'password': new Buffer(req.oldPass).toString('base64')
+      }, {
+        'username': new Buffer(req.newName).toString('base64'),
+        'password': new Buffer(req.newPass).toString('base64')
+      })
+    } else {
+      return false
+    }
+  }).catch(err => {
+    return false
+  })
 }
 function handleErr (e, ctx) {
   console.log(e)
@@ -189,11 +222,31 @@ router
       }
     } catch (e) { handleErr(e, ctx) }
   })
+  .post('modifyAdmins', '/modifyAdmins', async (ctx, next) => {
+    try {
+      if (SessionId === '' || ctx.cookies.get('sessionId') !== SessionId) {
+        return next(createError(ctx, 401, 'Access Denied'))
+      }
+
+      let res = await modifyAdmins(ctx.request.body)
+      if (_.isNull(res)) {
+        handleErr('modify error: no matched user', ctx)
+      } else if (res) {
+        ctx.body = 'modify success'
+        return next()
+      } else {
+        handleErr('modify false', ctx)
+      }
+    } catch (e) { handleErr(e, ctx) }
+  })
   .post('login', '/login', async (ctx, next) => {
     try {
       let username = ctx.request.body.username
       let password = ctx.request.body.password
-      let res = validate(username, password)
+      if (!username || !password) {
+        return next(createError(ctx, 401, 'Access Denied'))
+      }
+      let res = await validate(username, password)
       
       if (res) {
         SessionId = Math.random().toString().slice(2)

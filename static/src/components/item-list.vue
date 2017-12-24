@@ -1,7 +1,7 @@
 <template>
 	<div class="item-list">
 		<div class="itemTableTitle">
-      <span class="first">Item-List</span>
+      <span class="first">文章列表</span>
       <span><button @click="addOne">新增</button></span>
       <span><button @click="refresh">刷新</button></span>
       <span :style="{color: tipColor}">{{tips}}</span>

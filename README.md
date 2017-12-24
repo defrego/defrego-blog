@@ -1,5 +1,5 @@
 # defrego-blog
-自己尝试写的一个很简单的博客系统，目前仅拥有最简单的展示功能，
+自己尝试写的一个很简单的博客系统，目前仅拥有最简单的展示功能，<a href="https://defrego.com" target="_blank">展示</a>
 ### 前端
   - 采用了vueJs做整个框架
   - 文章的编辑和显示采用了 [mavon-editor](https://github.com/hinesboy/mavonEditor) (PS:真的很好用！！！)
