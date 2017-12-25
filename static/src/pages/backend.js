@@ -2,8 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Resource from 'vue-resource'
 import Backend from '../modules/backend.vue'
-import backendLogin from '../modules/backendLogin.vue'
+import backendLogin from '../modules/backendLogin'
 import backendManage from '../modules/backendManage.vue'
+import manageArticle from '../modules/backendManage/manageArticle'
+import manageUser from '../modules/backendManage/manageUser'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
@@ -11,7 +13,22 @@ const router = new Router({
   routes: [
     {path: '/', redirect: '/backendLogin'},
     {path: '/backendLogin', component: backendLogin, meta: {needAuth: false}},
-    {path: '/backendManage', component: backendManage, meta: {needAuth: true}}
+    {
+      path: '/backendManage',
+      component: backendManage,
+      children: [{
+        path: '/',
+        redirect: 'manageArticle'
+      }, {
+        path: 'manageArticle',
+        component: manageArticle,
+        meta: {needAuth: true}
+      }, {
+        path: 'manageUser',
+        component: manageUser,
+        meta: {needAuth: true}
+      }]
+    }
   ]
 })
 router.beforeEach((to, from, next) => {

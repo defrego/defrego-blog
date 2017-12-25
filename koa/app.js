@@ -143,6 +143,7 @@ function createError (ctx, errorCode, content) {
 }
 
 function resetTik () {
+  clearTimeout(Tik)
   Tik = setTimeout(function () {
     SessionId = ''
   }, 5*60*1000)

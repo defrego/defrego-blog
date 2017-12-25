@@ -1,28 +1,19 @@
 <template>
   <div id="app">
-    <banner :bannerImg="bannerImg"></banner>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import banner from '../components/banner.vue'
 export default {
   name: 'app',
   data () {
-    return {
-      bannerImg: '/image/banner.jpg'
-    }
-  },
-  methods: {
-  },
-  components: { banner },
-  created() {
+    return {}
   }
 }
 </script>
 
-<style>
+<style lang="less">
 html, body, #app{
   width: 100%;
   height: 100%;
@@ -39,5 +30,6 @@ h1, h2, h3, h4, h5 {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100%;
 }
 </style>

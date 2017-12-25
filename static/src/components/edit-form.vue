@@ -1,32 +1,32 @@
 <template>
-	<div class="edit-form">
+  <div class="edit-form">
     <div class="params">
-    	<div class="left">
-    		<div>
-      		<span>标题图片</span>
-      		<input v-model="editFormParam.titleImgSrc" type="text" :disabled="srcDisable">
-      		<input type="file" @change="selectFile">
-      	</div>
-    		<div><span>标题</span><input v-model="editFormParam.title" type="text"></div>
+      <div class="left">
+        <div>
+          <span>标题图片</span>
+          <input v-model="editFormParam.titleImgSrc" type="text" :disabled="srcDisable">
+          <input type="file" @change="selectFile">
+        </div>
+        <div><span>标题</span><input v-model="editFormParam.title" type="text"></div>
         <div><span>标签</span><input v-model="editFormParam.tags"  type="text"></div>
         <div><span>描述</span><input v-model="editFormParam.description" type="area"></div>
-    	</div>
-    	<div class="right">
-    		<div><span>访问量</span><input v-model="editFormParam.visited" type="text" disabled></div>
+      </div>
+      <div class="right">
+        <div><span>访问量</span><input v-model="editFormParam.visited" type="text" disabled></div>
         <div><span>喜欢</span><input v-model="editFormParam.likes" type="text" disabled></div>
         <div><span>讨厌</span><input v-model="editFormParam.dislikes" type="text" disabled></div>
         <div><span>提交时间</span><input v-model="editFormParam.postTime" type="text" disabled></div>
-    	</div>
-    	<div class="clear"></div>
+      </div>
+      <div class="clear"></div>
     </div>
     <div class="handle">
-    	<span><button @click="submit">提交</button></span>
-    	<span><button @click="abandom">放弃修改</button></span>
+      <span><button @click="submit">提交</button></span>
+      <span><button @click="abandom">放弃修改</button></span>
     </div>
     <div class="content">
       <mavon-editor ref="mavon-editor" v-model="content" @imgAdd="imgAdd" @imgDel="imgDel"></mavon-editor>
     </div>
-	</div>
+  </div>
 </template>
 
 <script>
@@ -36,34 +36,34 @@ import padStart from 'lodash/padStart'
 import isEmpty from 'lodash/isEmpty'
 
 export default {
-	name: 'edit-form',
-	data() {
-		return {
-			content: '',
-			imgFiles: {},
+  name: 'edit-form',
+  data() {
+    return {
+      content: '',
+      imgFiles: {},
       editFormParam: this.value
-		}
-	},
-	props: {
-		value: Object,
-		editMode: String
-	},
-	computed: {
-		srcDisable() {
-			return this.imgFiles['tImageLink'] !== undefined
-		}
-	},
-	methods: {
-		abandom() {
-			this.$emit('abandom')
-		},
-		addOne() {
+    }
+  },
+  props: {
+    value: Object,
+    editMode: String
+  },
+  computed: {
+    srcDisable() {
+      return this.imgFiles['tImageLink'] !== undefined
+    }
+  },
+  methods: {
+    abandom() {
+      this.$emit('abandom')
+    },
+    addOne() {
       this.$el.querySelector('input[type="file"]').value = ''
       this.imgFiles = {}
       this.content = ''
       this.imgEmpty(this.imgFiles)
-		},
-		updateOne() {
+    },
+    updateOne() {
       this._getContent(this.editFormParam.title).then(res => {
         this.$el.querySelector('input[type="file"]').value = ''
         this.imgFiles = {}
@@ -72,13 +72,13 @@ export default {
       }, err => {
         console.log(err)
       })
-		},
-		selectFile() {
+    },
+    selectFile() {
       let $file = this.$el.querySelector('input[type="file"]').files
       if ($file.length > 0) {
-      	this.$set(this.imgFiles, 'tImageLink', $file[0])
+        this.$set(this.imgFiles, 'tImageLink', $file[0])
       } else {
-      	this.$set(this.imgFiles, 'tImageLink', undefined)
+        this.$set(this.imgFiles, 'tImageLink', undefined)
       }
     },
     imgAdd(pos, $file) {
@@ -121,7 +121,7 @@ export default {
         })
       }).then(data => {
         return this.$http.post(url, data).then(res => {
-        	this.$emit('saveOK')
+          this.$emit('saveOK')
         })
       }).catch(err => {
         console.log(err)
@@ -146,7 +146,7 @@ export default {
       }
       return this.$http.post('data/updateImg', formdata)
     }
-	}
+  }
 }
 </script>
 
@@ -154,15 +154,15 @@ export default {
 .edit-form {
   margin-top: 20px;
   .params {
-  	min-width: 820px;
-  	.left {
-  		width: 60%;
-  		float: left;
-  	}
-  	.right {
-  		eidth: 35%;
-  		float: left;
-  	}
+    min-width: 820px;
+    .left {
+      width: 60%;
+      float: left;
+    }
+    .right {
+      eidth: 35%;
+      float: left;
+    }
     .left > div,
     .right > div {
       margin: 5px 0;
@@ -178,20 +178,20 @@ export default {
     }
   }
   .handle {
-  	text-align: right;
-  	margin: 20px 0 5px;
-  	button {
-  		width: 100px;
-  		&:hover {
-  			cursor: pointer;
-  		}
-  	}
+    text-align: right;
+    margin: 20px 0 5px;
+    button {
+      width: 100px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
   .content {
     margin: 0 0 100px
   }
 }
 .clear {
-	clear: both;
+  clear: both;
 }
 </style>
