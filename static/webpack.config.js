@@ -5,13 +5,13 @@ var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
 
 module.exports = {
   entry: {
-    main: './src/pages/main.js',
-    backend: './src/pages/backend.js',
+    main: './static/src/pages/main.js',
+    backend: './static/src/pages/backend.js',
     vendor: ['mavon-editor']
   },
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    publicPath: '/static/dist/',
     filename: '[name].build.[hash].js',
     libraryTarget: "umd"
   },
@@ -74,7 +74,7 @@ module.exports = {
       minChunks: Infinity
     }),
     new AssetsPlugin({
-      filename: 'dist/webpack.assets.js',
+      filename: 'static/dist/webpack.assets.js',
       processOutput: function(assets) {
         return 'window.WEBPACK_ASSETS='+JSON.stringify(assets);
       }
