@@ -1,7 +1,8 @@
 .DS_Store
 .editorconfig
 dist/static/assets
-dist/static/image/*
+dist/static/image
+!dist/static/image/banner.jpg
 dist/static/js
 node_modules/
 
