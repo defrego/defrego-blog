@@ -12,7 +12,7 @@ const app = new Koa()
 let SessionId = ''
 let Tik = null
 
-let db = mongoose.createConnection('mongodb://localhost:27017/general')
+let db = mongoose.createConnection('mongodb://localhost:30017/general')
 let articleSchema = new mongoose.Schema({
   title: String,
   tags: Array,
@@ -56,7 +56,7 @@ function add (req) {
     tags: req.tags || ['default tag'],
     description: req.description || 'no description',
     content: req.content || 'default content a b c',
-    titleImgSrc: req.titleImgSrc || '/image/default.jpg',
+    titleImgSrc: req.titleImgSrc || '/image/banner.jpg',
     imgFiles: req.imgFiles || {},
     postTime: req.postTime || Date.now(),
     visited: req.visited || 0,
@@ -94,7 +94,7 @@ function saveFiles (req) {
     const reader = fs.createReadStream(file.path)
     const writer = fs.createWriteStream(destPath)
     reader.pipe(writer)
-    res[key] = '/image/' + filename
+    res[key] = 'image/' + filename
   }
   return res
 }

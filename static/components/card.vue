@@ -1,5 +1,5 @@
 <template>
-  <div class="card" v-lazy:background-image="titleImgSrc" @click="jumpToDetail">
+  <div class="card" v-lazy:background-image="imageSrc" @click="jumpToDetail">
     <div class="articleInfo">
       <span class="title" :title="title">{{title}}</span>
       <span class="postTime">{{tags.join(', ')}}</span>
@@ -12,6 +12,11 @@ export default {
   name: 'card',
   data() {
     return {
+    }
+  },
+  computed: {
+    imageSrc() {
+      return this.titleImgSrc
     }
   },
   props: {
