@@ -237,8 +237,8 @@ conn
   })
 })
 .connect({
-  host: '127.0.0.1',
+  host: '',
   port: 22,
-  username: 'abcd',
-  password: "1234"
+  username: '',
+  password: ''
 })
