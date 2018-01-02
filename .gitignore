@@ -1,5 +1,6 @@
 .DS_Store
 .editorconfig
+publish.js
 dist/static/assets
 dist/static/image/*
 !dist/static/image/banner.jpg
