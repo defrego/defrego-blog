@@ -152,43 +152,43 @@ export default {
 
 <style lang="less" scoped>
 .edit-form {
-  margin-top: 20px;
+  margin-top: 1.25rem;
   .params {
-    min-width: 820px;
+    min-width: 51.25rem;
     .left {
       width: 60%;
       float: left;
     }
     .right {
-      eidth: 35%;
+      width: 35%;
       float: left;
     }
     .left > div,
     .right > div {
-      margin: 5px 0;
+      margin: 0.313rem 0;
       text-align: left;
       span {
         display: inline-block;
-        width: 80px;
+        width: 5rem;
         float: left;
       }
       input, select {
-        width: 160px;
+        width: 10rem;
       }
     }
   }
   .handle {
     text-align: right;
-    margin: 20px 0 5px;
+    margin: 1.25rem 0 0.313rem;
     button {
-      width: 100px;
+      width: 6.25rem;
       &:hover {
         cursor: pointer;
       }
     }
   }
   .content {
-    margin: 0 0 100px
+    margin: 0 0 6.25rem
   }
 }
 .clear {

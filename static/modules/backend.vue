@@ -15,10 +15,14 @@ export default {
 
 <style lang="less">
 html, body, #app{
+  font-size: 100%;
   width: 100%;
   height: 100%;
   padding: 0;
   margin: 0;
+}
+body {
+  font-size: 1rem;
 }
 h1, h2, h3, h4, h5 {
   padding: 0;

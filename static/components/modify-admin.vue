@@ -119,25 +119,25 @@ export default {
 <style lang="less" scoped>
 .modifyAdmin {
   .content {
-    width: 500px;
-    margin: 10px auto;
+    width: 31.25rem;
+    margin: 0.625rem auto;
     div {
       text-align: left;
-      margin: 5px 0;
+      margin: 0.313rem 0;
       label {
         display: inline-block;
-        width: 100px;
+        width: 6.25rem;
         vertical-align: top;
       }
       input {
         display: inline-block;
-        width: 180px;
+        width: 11.25rem;
         vertical-align: top;
       }
       h5 {
         display: inline-block;
-        margin-left: 10px;
-        width: 200px;
+        margin-left: 0.625rem;
+        width: 12.5rem;
         vertical-align: top;
         color: red;
       }

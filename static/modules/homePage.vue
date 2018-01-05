@@ -61,9 +61,5 @@ export default {
 }
 </script>
 
-<style lang="less">
-.homePage {
-  width: 70%;
-  margin: 20px auto;
-}
+<style lang="less" scoped>
 </style>

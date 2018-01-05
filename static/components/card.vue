@@ -41,7 +41,7 @@ export default {
   width: 100%;
   height: 0;
   padding-bottom: 60%;
-  margin: 20px 0;
+  margin: 1.25rem 0;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -52,7 +52,7 @@ export default {
     width: 100%;
     position: absolute;
     bottom: 0;
-    padding: 10px 0;
+    padding: 0.625rem 0;
     background-color: #464646;
     color: #fdfdfd;
     opacity: 0.65;
@@ -64,14 +64,14 @@ export default {
       display: inline-block;
       text-align: left;
       font-size: 2.3rem;
-      margin-left: 20px;
+      margin-left: 1.25rem;
     }
     .postTime {
       width: 100%;
       display: inline-block;
       text-align: left;
       font-size: 1.2rem;
-      margin-left: 20px;
+      margin-left: 1.25rem;
     }
   }
 }

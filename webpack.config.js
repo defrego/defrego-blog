@@ -110,7 +110,9 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    overlay: true
+    overlay: true,
+    contentBase: './dist/static',
+    open: 'http://localhost:80/'
   },
   performance: {
     hints: false

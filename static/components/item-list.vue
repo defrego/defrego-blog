@@ -63,15 +63,15 @@ export default {
 <style lang="less" scoped>
 .item-list {
   .itemTableTitle {
-    margin-top: 20px;
-    height: 30px;
-    line-height: 30px;
+    margin-top: 1.25rem;
+    height: 1.875rem;
+    line-height: 1.875rem;
     span {
       display: inline-block;
       float: left;
       button {
-        width: 100px;
-        margin: 4px 0 4px 10px;
+        width: 6.25rem;
+        margin: 0.25rem 0 0.25rem 0.625rem;
         &:hover {
           cursor: pointer;
         }
@@ -79,15 +79,15 @@ export default {
     }
   }
   .itemTable {
-    width: 1140px;
-    max-height: 600px;
+    width: 71.25rem;
+    max-height: 37.5rem;
     border: 1px solid black;
     border-bottom: none;
     overflow-y: scroll;
     .item {
       border-bottom: 1px solid black;
-      height: 26px;
-      line-height: 26px;
+      height: 1.625rem;
+      line-height: 1.625rem;
       span {
         height: 100%;
         display: inline-block;
@@ -97,20 +97,20 @@ export default {
         white-space: nowrap;
         overflow: hidden;
         &.handle {
-          width: 60px;
+          width: 3.75rem;
           border-right: none;
         }
         &.number {
-          width: 50px;
+          width: 3.125rem;
         }
         &.short {
-          width: 180px;
+          width: 11.25rem;
         }
         &.normal {
-          width: 180px;
+          width: 11.25rem;
         }
         &.long {
-          width: 300px;
+          width: 18.75rem;
         }
       }
     }

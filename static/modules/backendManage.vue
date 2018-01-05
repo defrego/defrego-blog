@@ -67,13 +67,13 @@ export default {
   height: 100%;
   position: relative;
   .nav {
-    width: 200px;
+    width: 12.5rem;
     height: 100%;
     position: fixed;
     background-color: #dcdcdc;
     div {
-      height: 100px;
-      line-height: 100px;
+      height: 6.25rem;
+      line-height: 6.25rem;
       span {
         display: inline-block;
         vertical-align: middle;
@@ -87,8 +87,8 @@ export default {
         }
         transform: rotate(0);
         transition: transform 0.4s;
-        width: 64px;
-        height: 64px;
+        width: 4rem;
+        height: 4rem;
         background-image: url('../assets/logo.jpg');
         background-repeat: no-repeat;
         background-position: center;
@@ -98,13 +98,13 @@ export default {
     ul {
       list-style: none;
       height: 100%;
-      padding: 20px 10px 0;
+      padding: 1.25rem 0.625rem 0;
       margin: 0;
       li {
         display: inline-block;
         width: 100%;
-        height: 32px;
-        line-height: 32px;
+        height: 2rem;
+        line-height: 2rem;
         vertical-align: middle;
         &:hover {
           background-color: #cccccc;
@@ -114,8 +114,8 @@ export default {
     }
   }
   .content {
-    margin-left: 200px;
-    padding: 16px;
+    margin-left: 12.5rem;
+    padding: 1rem;
   }
 }
 </style>
