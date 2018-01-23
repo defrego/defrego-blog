@@ -66,10 +66,17 @@ function add (req) {
   })
   return article.save()
 }
-function del (req) {
+async function del (req) {
   if (req['title'] === undefined) {
     return null
   }
+  let answer = await getContent(req.title)
+  let arr = answer.content.match(/\[.*\]\(image\/(.*)\)/g) || []
+  arr.concat([answer.titleImgSrc])
+  console.log(arr)
+  arr.forEach(item => {
+    deleteFile(item.slice(item.indexOf('image/') + 6, -1))
+  })
   return articleModel.findOneAndRemove({
     'title': req.title
   })
@@ -81,6 +88,15 @@ function update (req) {
   return articleModel.update({
     'title': req.title
   }, req)
+}
+function deleteFile (filename) {
+  let delPath = path.join(__dirname, '..', 'static/image', filename)
+  fs.unlink(delPath, (err) => {
+    if (err) {
+      throw err
+    }
+    console.log('delete complete: ' + delPath)
+  })
 }
 function saveFiles (req) {
   if (_.isEmpty(req)) {
@@ -287,8 +303,9 @@ router
   })
 
 
-app.use(bodyParser)
-   .use(router.routes())
-   .use(router.allowedMethods())
-   .listen(3000)
+app
+  .use(bodyParser)
+  .use(router.routes())
+  .use(router.allowedMethods())
+  .listen(3000)
 console.log("Server started and listen on port 3000")
