@@ -1,16 +1,18 @@
 <template>
   <div class="banner">
-    <div class="bannerBlock" v-show="!bMinimal" :style="{'background-image': `url('${this.bannerImg}')`}">
+    <div class="bannerBlock" v-show="!bMinimal" :style="{'background-image': `url('${bannerImg}')`}">
       <div class="logo" @click="jumpToHome"></div>
       <h1 class="title">
-        Take What You Can And Give Nothing Back
+        {{title}}
       </h1>
+      <h4 class="tags">{{tags}}</h4>
     </div>
-    <div class="bannerInner minimal" v-show="bMinimal" :style="{'background-image': `url('${this.bannerImg}')`}">
+    <div class="bannerInner minimal" v-show="bMinimal" :style="{'background-image': `url('${bannerImg}')`}">
       <div class="logo" @click="jumpToHome"></div>
       <h1 class="title">
-        Take What You Can And Give Nothing Back
+        {{title}}
       </h1>
+      <h4 class="tags">{{tags}}</h4>
     </div>
   </div>
 </template>
@@ -33,7 +35,19 @@ export default {
     }
   },
   props: {
+    bannerInfo: Object,
     bannerImg: String
+  },
+  computed: {
+    bannerImg() {
+      return this.bannerInfo.titleImgSrc || '/image/banner.jpg'
+    },
+    title() {
+      return this.bannerInfo.title || 'Take What You Can And Give Nothing Back'
+    },
+    tags() {
+      return this.bannerInfo.tags
+    }
   },
   methods: {
     jumpToHome() {

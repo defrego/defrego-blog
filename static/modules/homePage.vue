@@ -43,7 +43,9 @@ export default {
   components: { card },
   created() {
     let that = this
-    this.$emit('bannerImgChang', '/image/banner.jpg')
+    this.$emit('bannerInfo', {
+      titleImgSrc: '/image/banner.jpg'
+    })
     this.$http.get('/data/search').then(res => {
       that.cardlist.splice(0)
       each(res.data, (item, key) => {

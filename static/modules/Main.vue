@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <banner :bannerImg="bannerImg" @bMinimal="changeMinimal" @dblclick.native="scrollToTop"></banner>
-    <router-view @click="jumpToDetail" @bannerImgChang="bannerImgChang"></router-view>
+    <banner :bannerInfo="bannerInfo" @bMinimal="changeMinimal" @dblclick.native="scrollToTop"></banner>
+    <router-view @click="jumpToDetail" @bannerInfo="bannerInfoChange"></router-view>
     <transition name="fade">
       <div class="scroll-to-top" v-show="showArrow" @mouseover="showFoot = true" @mouseout="showFoot = false" @click="scrollToTop"></div>
     </transition>
@@ -18,6 +18,11 @@ export default {
   name: 'app',
   data () {
     return {
+      bannerInfo: {
+        title: '',
+        tags: [],
+        titleImgSrc: ''
+      },
       bannerImg: '/image/banner.jpg',
       showFoot: false,
       showArrow: false
@@ -27,8 +32,8 @@ export default {
     jumpToDetail(title) {
       this.$router.push(`/detailPage/${title}`)
     },
-    bannerImgChang(imgSrc) {
-      this.bannerImg = imgSrc
+    bannerInfoChange(info) {
+      this.$set(this, 'bannerInfo', info)
     },
     scrollToTop() {
       this.showFoot = false
@@ -141,11 +146,12 @@ h1, h2, h3, h4, h5 {
       font-size: 1.5rem;
     }
   }
-  .title {
+  .title,
+  .tags {
     &:hover {
       cursor: default;
     }
-    position: absolute;;
+    position: absolute;
     width: 100%;
     top: 30%;
     color: #ffffff;
@@ -153,6 +159,10 @@ h1, h2, h3, h4, h5 {
     text-shadow: 0 1px 1px #000000;
     font-weight: lighter;
     font-family: Exo,'-apple-system','Open Sans',HelveticaNeue-Light,'Helvetica Neue Light','Helvetica Neue','Hiragino Sans GB','Microsoft YaHei',Helvetica,Arial,sans-serif
+  }
+  .tags {
+    top: 60%;
+    font-size: 1em;
   }
   .logo {
     &:hover {
@@ -192,7 +202,8 @@ h1, h2, h3, h4, h5 {
     width: 4rem;
     height: 3.5rem;
   }
-  .homePage {
+  .homePage,
+  .detailPage {
     width: 98%;
     margin: 1.25rem auto;
   }
@@ -232,7 +243,8 @@ h1, h2, h3, h4, h5 {
     width: 4rem;
     height: 3.5rem;
   }
-  .homePage {
+  .homePage,
+  .detailPage {
     width: 98%;
     margin: 1.25rem auto;
   }
@@ -262,9 +274,20 @@ h1, h2, h3, h4, h5 {
   body {
     font-size: 0.8rem;
   }
-  .homePage {
+  .homePage,
+  .detailPage {
     width: 70%;
     margin: 1.25rem auto;
+    .v-note-panel {
+      box-shadow: none !important;
+      .v-show-content {
+        background-color: #ffffff !important;
+      }
+      img {
+        width: 50%;
+      }
+      
+    }
   }
 }
 </style>

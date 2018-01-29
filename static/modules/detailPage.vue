@@ -1,20 +1,11 @@
 <template>
   <div class="detailPage">
     <div>
-      <span>{{title}}</span>
-      <span>{{tags}}</span>
-      <span>{{description}}</span>
-      <span>{{titleImgSrc}}</span>
-      <span>{{postTime}}</span>
-      <span>{{visited}}</span>
-      <span>{{likes}}</span>
-      <span>{{dislikes}}</span>
-    </div>
-    <div>
       <mavon-editor v-model="content"
                     :toolbarsFlag="false"
                     :subfield="false"
                     default_open="preview"></mavon-editor>
+      }
     </div>
   </div>
 </template>
@@ -42,13 +33,18 @@ export default {
       this.tags = res.data.tags.join(', '),
       this.description = res.data.description,
       this.content = res.data.content,
+      // this.content = mavonEditor.markdownIt.render(res.data.content),
       this.titleImgSrc = res.data.titleImgSrc,
       this.postTime = res.data.postTime,
       this.visited = res.data.visited,
       this.likes = res.data.likes,
       this.dislikes = res.data.dislikes,
       this.comments = res.data.comments
-      this.$emit('bannerImgChang', res.data.titleImgSrc)
+      this.$emit('bannerInfo', {
+        title: this.title,
+        tags: this.tags,
+        titleImgSrc: this.titleImgSrc
+      })
       document.title = res.data.title
       let arr = document.head.querySelectorAll('meta')
       for (let i=0; i<arr.length; i++) {
@@ -66,5 +62,9 @@ export default {
 </script>
 
 <style lang="less">
-.detailPage {}
+.detailPage {
+  .content {
+    background-color: #f3fafc;
+  }
+}
 </style>
