@@ -5,7 +5,6 @@
                     :toolbarsFlag="false"
                     :subfield="false"
                     default_open="preview"></mavon-editor>
-      }
     </div>
   </div>
 </template>

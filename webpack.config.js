@@ -52,7 +52,7 @@ module.exports = {
       {
         test: /\.less$/,
         use: [
-          'style-loader',
+          'vue-style-loader',
           'css-loader',
           'less-loader'
         ],
@@ -72,11 +72,15 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(png|jpg|gif|svg|ttf|woff|woff2|eot)$/,
+        test: /\.(png|jpg|gif|ttf|woff|woff2|eot)$/,
         loader: 'file-loader',
         options: {
           name: 'assets/[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.svg$/,
+        loader: 'url-loader'
       }
     ]
   },

@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Resource from 'vue-resource'
-import Backend from '../modules/backend.vue'
+import Backend from './backend.vue'
 import backendLogin from '../modules/backendLogin'
 import backendManage from '../modules/backendManage.vue'
 import manageArticle from '../modules/backendManage/manageArticle'
 import manageUser from '../modules/backendManage/manageUser'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import '../css/backend.less'
 
 const router = new Router({
   routes: [

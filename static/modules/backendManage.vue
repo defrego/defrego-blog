@@ -2,7 +2,7 @@
   <div class="backendManage">
     <div class="nav">
       <div>
-        <span class="logo" @click="jumpToHome"></span>
+        <img class="logo" @click="jumpToHome" src="../assets/logo.svg" />
         <span>Defrego's Blog</span>
       </div>
       <ul>
@@ -80,19 +80,15 @@ export default {
       }
       .logo {
         &:hover {
-          transform: rotate(360deg);
-          transition: transform 0.4s;
+          // transform: rotate(360deg);
+          // transition: transform 0.4s;
           cursor: pointer;
           opacity: 0.6
         }
-        transform: rotate(0);
-        transition: transform 0.4s;
-        width: 4rem;
-        height: 4rem;
-        background-image: url('../assets/logo.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
+        // transform: rotate(0);
+        // transition: transform 0.4s;
+        width: 3rem;
+        height: 3rem;
       }
     }
     ul {

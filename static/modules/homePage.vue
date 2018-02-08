@@ -13,6 +13,7 @@
 <script>
 import card from '../components/card.vue'
 import each from 'lodash/each'
+import orderBy from 'lodash/orderBy'
 document.title = 'defrego\'s blog'
 let arr = document.head.querySelectorAll('meta')
 for (let i=0; i<arr.length; i++) {
@@ -47,15 +48,17 @@ export default {
       titleImgSrc: '/image/banner.jpg'
     })
     this.$http.get('/data/search').then(res => {
-      that.cardlist.splice(0)
+      let arr = []
       each(res.data, (item, key) => {
-        that.cardlist.push({
+        arr.push({
           title: item.title,
           postTime: item.postTime,
           tags: item.tags,
           titleImgSrc: item.titleImgSrc
         })
       })
+      arr = orderBy(arr, ['postTime'], ['desc'])
+      that.cardlist.splice(0, that.cardlist.length, ...arr)
     }, err => {
       console.log(err)
     })

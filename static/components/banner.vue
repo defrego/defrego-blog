@@ -1,14 +1,14 @@
 <template>
   <div class="banner">
     <div class="bannerBlock" v-show="!bMinimal" :style="{'background-image': `url('${bannerImg}')`}">
-      <div class="logo" @click="jumpToHome"></div>
+      <img class="logo" @click="jumpToHome" src="../assets/logo.svg" />
       <h1 class="title">
         {{title}}
       </h1>
       <h4 class="tags">{{tags}}</h4>
     </div>
     <div class="bannerInner minimal" v-show="bMinimal" :style="{'background-image': `url('${bannerImg}')`}">
-      <div class="logo" @click="jumpToHome"></div>
+      <img class="logo" @click="jumpToHome" src="../assets/logo.svg" />
       <h1 class="title">
         {{title}}
       </h1>

@@ -2,11 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Resource from 'vue-resource'
 import VueLazyload from 'vue-lazyload'
-import Main from '../modules/Main.vue'
+import Main from './main.vue'
 import homePage from '../modules/homePage.vue'
 import detailPage from '../modules/detailPage.vue'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import '../css/main.less'
 
 const router = new Router({
   routes: [
