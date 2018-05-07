@@ -104,12 +104,16 @@ function saveFiles (req) {
   }
   let res = {}
   for (let key in req) {
+    console.log(key)
     let file = req[key]
+    console.log(file)
     let filename = (new Date()).getTime() + file.name.slice(file.name.lastIndexOf('.'))
     let destPath = path.join(__dirname, '..', 'static/image', filename)
     const reader = fs.createReadStream(file.path)
     const writer = fs.createWriteStream(destPath)
-    reader.pipe(writer)
+    fs.rename(file.path, destPath, err => {
+      if (err) throw err
+    })
     res[key] = 'image/' + filename
   }
   return res
