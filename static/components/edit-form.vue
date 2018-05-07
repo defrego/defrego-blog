@@ -26,6 +26,7 @@
     <div class="content">
       <mavon-editor ref="mavon-editor" v-model="content" @imgAdd="imgAdd" @imgDel="imgDel"></mavon-editor>
     </div>
+    <loading :state="loading"></loading>
   </div>
 </template>
 
@@ -34,14 +35,17 @@ import each from 'lodash/each'
 import merge from 'lodash/merge'
 import padStart from 'lodash/padStart'
 import isEmpty from 'lodash/isEmpty'
+import Loading from './loading.vue'
 
 export default {
   name: 'edit-form',
+  components: { Loading },
   data() {
     return {
       content: '',
       imgFiles: {},
-      editFormParam: this.value
+      editFormParam: this.value,
+      loading: false
     }
   },
   props: {
@@ -102,7 +106,9 @@ export default {
       } else {
         return false
       }
+      this.loading = true
       this._submitImg(this.imgFiles).then(res => {
+        this.loading = false
         let content = this.content
         for(let name in res.data) {
           if (name === 'tImageLink') {
@@ -124,6 +130,7 @@ export default {
           this.$emit('saveOK')
         })
       }).catch(err => {
+        this.loading = false
         console.log(err)
         this.$router.push('/backendLogin')
       })
@@ -143,6 +150,7 @@ export default {
       let formdata = new FormData()
       for(let name in files){
          formdata.append(name, files[name])
+         console.log(formdata.get(name))
       }
       return this.$http.post('data/updateImg', formdata)
     }
