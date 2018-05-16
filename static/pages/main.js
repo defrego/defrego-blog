@@ -14,7 +14,10 @@ const router = new Router({
     {path: '/', redirect: '/homePage'},
     {path: '/homePage', component: homePage},
     {path: '/detailPage/:title', component: detailPage}
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    return {x: 0, y: 0}
+  }
 })
 Vue.use(Router)
 Vue.use(Resource)
