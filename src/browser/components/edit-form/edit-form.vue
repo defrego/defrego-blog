@@ -24,7 +24,11 @@
       <span><button @click="abandom">放弃修改</button></span>
     </div>
     <div class="content">
-      <mavon-editor ref="mavon-editor" v-model="content" @imgAdd="imgAdd" @imgDel="imgDel"></mavon-editor>
+      <mavon-editor ref="mavon-editor"
+                    v-model="content"
+                    :subfield="true"
+                    @imgAdd="imgAdd"
+                    @imgDel="imgDel"></mavon-editor>
     </div>
     <loading :state="loading"></loading>
   </div>
@@ -86,6 +90,7 @@ export default {
       }
     },
     imgAdd(pos, $file) {
+      debugger
       this.imgFiles[pos] = $file
     },
     imgDel(pos) {
@@ -152,7 +157,7 @@ export default {
          formdata.append(name, files[name])
          console.log(formdata.get(name))
       }
-      return this.$http.post('data/updateImg', formdata)
+      return this.$http.post('/data/updateImg', formdata)
     }
   }
 }

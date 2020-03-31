@@ -1,6 +1,6 @@
 var Path = require('path')
 var fs = require('fs')
-var client = require('C:/Users/defrego/AppData/Roaming/npm/node_modules/ssh2').Client
+var client = require('ssh2').Client
 var conn = new client()
 
 // 获取当前路径的参数
@@ -8,6 +8,19 @@ function stat(sftp, path) {
   return new Promise((resolve, reject) => {
     sftp.stat(path, function(err, Stats) {
       if (err) {
+        err.message += ` [stat path '${path}' err]`
+        reject(err)
+      } else {
+        resolve(Stats)
+      }
+    })
+  })
+}
+function lstat(sftp, path) {
+  return new Promise((resolve, reject) => {
+    sftp.lstat(path, function(err, Stats) {
+      if (err) {
+        err.message += ` [stat path '${path}' err]`
         reject(err)
       } else {
         resolve(Stats)
@@ -24,6 +37,7 @@ function readdir(sftp, path) {
      */
     sftp.readdir(path, function(err, list) {
       if (err) {
+        err.message += ` [readdir path '${path}' err]`
         reject(err)
       } else {
         resolve(list)
@@ -42,8 +56,10 @@ function rmdir(sftp, path) {
         res.forEach(item => {
           var _p = Path.join(path, item.filename).replace(/\\/g, '/')
           todo.push(
-            stat(sftp, _p).then(_r => {
-              if (_r.isDirectory()) {
+            lstat(sftp, _p).then(_r => {
+              if (_r.isSymbolicLink()) {
+                promise_arr.push(rm(sftp, _p))
+              } else if (_r.isDirectory()) {
                 promise_arr.push(rmdir(sftp, _p))
               } else {
                 promise_arr.push(rm(sftp, _p))
@@ -56,6 +72,7 @@ function rmdir(sftp, path) {
         }).then(() => {
           return sftp.rmdir(path, err => {
             if (err) {
+              err.message += ` [rmdir path '${path}' err]`
               reject(err)
             } else {
               resolve('remove dir \'' + path + '\' complete')
@@ -68,6 +85,7 @@ function rmdir(sftp, path) {
         // 空文件夹直接删除掉
         sftp.rmdir(path, err => {
           if (err) {
+            err.message += ` [rmdir path '${path}' err]`
             reject(err)
           } else {
             resolve('remove dir \'' + path + '\' complete')
@@ -91,6 +109,7 @@ function rm(sftp, path) {
         if (err.message === 'No such file') {
           resolve('remove file \'' + path + '\' complete')
         } else {
+          err.message += ` [unlink path '${path}' err]`
           reject(err)
         }
       } else {
@@ -110,7 +129,7 @@ function uploadDir(sftp, src, des) {
       } else {
         fs.readdir(src, (err, files) => {
           if (err) {
-            if (err.message.indexOf('no such file') !== -1) {
+            if (err.message.indexOf('No such file') !== -1) {
               resolve('abandon: cannot find \'' + src + '\' in local file system')
             } else {
               reject(err)
@@ -157,7 +176,7 @@ function upload(sftp, src, des) {
   return new Promise((resolve, reject) => {
     sftp.fastPut(src, des, err => {
       if (err) {
-        if (err.message.indexOf('no such file') !== -1) {
+        if (err.message.indexOf('No such file') !== -1) {
           resolve('abandon: cannot find \'' + src + '\' in local file system')
         } else {
           reject(err)
@@ -168,32 +187,27 @@ function upload(sftp, src, des) {
     })
   })
 }
+// 创建软连接
+function symlink(sftp, src, des) {
+  return new Promise((resolve, reject) => {
+    sftp.symlink(src, des, (err, stream) => {
+      if (err) {
+        err.message += ` [symlink path '${src}' err]`
+        reject(err)
+      } else {
+        resolve('create /image link complete')
+      }
+    })
+  })
+}
 
 conn
 .on('ready', () => {
   conn.sftp(function(err, sftp) {
     if (err) throw err
-    rmdir(sftp, '/usr/blog/static/assets').then(res => {
+    rmdir(sftp, '/usr/blog/static').then(res => {
       console.log(res)
-      return rmdir(sftp, '/usr/blog/static/js')
-    }).then(res => {
-      console.log(res)
-      return rm(sftp, '/usr/blog/static/index.html')
-    }).then(res => {
-      console.log(res)
-      return rm(sftp, '/usr/blog/static/backend.html')
-    }).then(res => {
-      console.log(res)
-      return uploadDir(sftp, './dist/static/assets', '/usr/blog/static/assets/')
-    }).then(res => {
-      console.log(res)
-      return uploadDir(sftp, './dist/static/js', '/usr/blog/static/js')
-    }).then(res => {
-      console.log(res)
-      return upload(sftp, './dist/static/index.html', '/usr/blog/static/index.html')
-    }).then(res => {
-      console.log(res)
-      return upload(sftp, './dist/static/backend.html', '/usr/blog/static/backend.html')
+      return uploadDir(sftp, './dist/static', '/usr/blog/static/')
     })
     .then(res => {
       console.log(res)
@@ -202,6 +216,9 @@ conn
     .then(res => {
       console.log(res)
       return upload(sftp, './dist/koa/app.js', '/usr/blog/koa/app.js')
+    })
+    .then(res => {
+      return symlink(sftp, '/usr/blog/image', '/usr/blog/static/image')
     })
     .then(res => {
       console.log(res)

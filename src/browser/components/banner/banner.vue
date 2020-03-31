@@ -45,7 +45,7 @@ export default {
     style() {
       let res = {};
       if (this.bannerImg) {
-        res['background-image'] = `url('${bannerImg}')`;
+        res['background-image'] = `url('${this.bannerImg}')`;
       }
       return res;
     },
@@ -79,6 +79,6 @@ export default {
 
 <style lang="less" scoped>
 .defaultBgImg {
-  background-image: './banner.jpg'
+  background-image: url('./banner.jpg');
 }
 </style>

@@ -4,7 +4,9 @@
       <mavon-editor v-model="content"
                     :toolbarsFlag="false"
                     :subfield="false"
-                    default_open="preview"></mavon-editor>
+                    :shortCut="false"
+                    :imageClick="imageClick"
+                    defaultOpen="preview"></mavon-editor>
     </div>
   </div>
 </template>
@@ -25,6 +27,9 @@ export default {
       dislikes: 0,
       comments: []
     }
+  },
+  methods: {
+    imageClick() {}
   },
   created() {
     this.$http.get(`/data/article/${this.$route.params.title}`).then(res => {

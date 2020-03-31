@@ -7,10 +7,11 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin')  // 清空dist
 const resolve = dir => path.resolve(__dirname, dir);
 const join = dir => path.join(__dirname, dir);
 
-let webpackConfig = {
+const webpackConfig = {
+  mode: 'none',
   entry: {
-    'main': ['webpack-hot-middleware/client', './src/browser/pages/main/main.js'],
-    'backend': ['webpack-hot-middleware/client', './src/browser/pages/backend/backend.js']
+    'main': ['./src/browser/pages/main/main.js'],
+    'backend': ['./src/browser/pages/backend/backend.js']
   },
   output: {
     path: resolve('dist/static'),
@@ -115,16 +116,20 @@ let webpackConfig = {
   optimization: {
     splitChunks: {
       chunks: 'all',
-      cacheGroups: {
-        vendor_vue: {
-          name: 'vendor_vue',
-          test: /vue/
-        },
-        vendors_mavon_editor: {
-          name: 'vendor_mavon_editor',
-          test: /mavon-editor/
-        }
-      }
+      automaticNameDelimiter: '.'
+      // cacheGroups: {
+      //   vendor_common: {
+      //     name: 'vendor_common',
+      //     test: /browser/,
+      //     minSize: 102400,
+      //     priority: 5
+      //   },
+      //   vendor_mavon_editor: {
+      //     name: 'vendor_mavon_editor',
+      //     test: /mavon-editor/,
+      //     priority: 10
+      //   }
+      // }
     }
   },
   resolve: {
@@ -136,15 +141,7 @@ let webpackConfig = {
       '@components': resolve('src/browser/components')
     },
     extensions: ['*', '.js', '.vue', '.json']
-  },
-  devtool: 'inline-source-map',   // source-map
-  // devServer: {   // webpack-dev-server
-  //   contentBase: './dist/static',
-  //   writeToDisk: true
-  // },
-  // performance: {
-  //   hints: false
-  // },
+  }
 }
 
 module.exports = webpackConfig
