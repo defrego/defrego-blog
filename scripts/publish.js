@@ -254,8 +254,8 @@ conn
   })
 })
 .connect({
-  host: '',
+  host: '47.100.24.66',
   port: 22,
-  username: '',
-  password: ''
+  username: 'root',
+  password: 'dfj.14226'
 })
