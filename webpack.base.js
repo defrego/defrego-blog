@@ -91,10 +91,6 @@ const webpackConfig = {
         to: resolve('dist/koa'),
         toType: 'dir'
       }, {
-        from: join('src/data'),
-        to: join('dist/image'),
-        toType: 'dir'
-      }, {
         from: join('src/browser/assets/favicon.ico'),
         to: join('dist/static/favicon.ico'),
         toType: 'file'
