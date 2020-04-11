@@ -11,6 +11,7 @@ const compiler = webpack(config)
 app.use('/data/', createProxyMiddleware({
   target: "http://localhost:3000/"
 }))
+app.use('/image/', express.static('src/image'))
 app.use(devMiddleware(compiler, {
   noInfo: true,
   writeToDisk: false,
