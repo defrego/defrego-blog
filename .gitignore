@@ -1,6 +1,7 @@
 .DS_Store
 .editorconfig
 dist
+src/data
 node_modules
 npm-debug.log
 yarn-error.log
