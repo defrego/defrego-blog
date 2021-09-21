@@ -54,7 +54,7 @@
     "http-proxy-middleware": "1.0.1",
     "less": "2.7.3",
     "less-loader": "4.1.0",
-    "ssh2": "0.5.5",
+    "ssh2": "1.4.0",
     "uglifyjs-webpack-plugin": "2.2.0",
     "url-loader": "0.6.2",
     "vue-loader": "15.7.1",
