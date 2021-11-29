@@ -30,7 +30,7 @@
     "koa-body": "2.6.0",
     "koa-router": "7.4.0",
     "lodash": "4.17.15",
-    "mavon-editor": "2.7.6",
+    "mavon-editor": "2.8.2",
     "mongoose": "4.13.19",
     "vue": "2.6.10",
     "vue-lazyload": "1.3.3",
